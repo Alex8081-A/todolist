@@ -1,11 +1,36 @@
-import T4 from "./Sandbox/T4";
 import React from "react";
-//import Test from './Sandbox/Test';
-
+import Login from "./Pages/Login";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import Wrapper from "./Sandbox/Wrapper";
 const App = () => {
+  const checkToken = () => {
+    const token = localStorage.getItem("token");
+    if (token === "secret-string") {
+      return true;
+    } else return false;
+  };
   return (
     <div>
-      <T4 />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route
+          path="Home"
+          element={
+            <Wrapper isAuth={checkToken()}>
+              <Home />
+            </Wrapper>
+          }
+        />
+        <Route
+          path="About"
+          element={
+            <Wrapper isAuth={checkToken()}>
+              <div>adas</div>
+            </Wrapper>
+          }
+        />
+      </Routes>
     </div>
   );
 };
